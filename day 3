@@ -1,1 +1,34 @@
-
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+#define N 6
+int g[N][N]={{0,1,1,0,0,0},{1,0,0,1,0,0},{1,0,0,0,1,0},{0,1,0,0,1,0},{0,0,1,1,0,1},{0,0,0,0,1,0}};
+int p[N],q[N],f,r;
+void bfs(int s,int e){
+    for(int i=0;i<N;p[i++]=-1);
+    q[f=r=0]=s;p[s]=s;
+    while(f<=r){
+        int u=q[f++];
+        for(int v=0;v<N;v++)
+            if(g[u][v]&&p[v]==-1)
+                p[v]=u,q[++r]=v;
+    }
+    if(p[e]!=-1){
+        printf("Path: ");
+        for(int v=e;v!=s;v=p[v])
+            printf("%d<-",v);
+        printf("%d\n",s);
+    }else printf("No path\n");
+}
+int main(){
+    srand(time(0));
+    int s=rand()%20+1,g,a=0;
+    while(!a){
+        printf("Guess (1-20): ");
+        scanf("%d",&g);
+        a=g==s?1:(printf(g<s?"Too low\n":"Too high\n"),0);
+    }
+    printf("Correct!\n");
+    bfs(0,5);
+    return 0;
+}
